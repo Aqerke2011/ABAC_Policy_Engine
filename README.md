@@ -145,29 +145,29 @@ ABAC Policy Engine жобасында UML диаграммасы жүйенің 
 UML диаграммасы жүйенің құрылымын түсінуге, компоненттер арасындағы байланысты көрсетуге және жобаны әзірлеу процесін жеңілдетуге көмектеседі.
 
 
-## 15. UML Sequence Diagram
+
+## 9.1 UML Activity Diagram
+
+Бұл диаграмма ABAC Policy Engine жүйесінде пайдаланушының сұранысын тексеру және қолжетімділік туралы шешім қабылдау процесін көрсетеді.
 
 ```mermaid
-sequenceDiagram
-    actor User as Пайдаланушы
-    participant Engine as ABAC Policy Engine
-    participant Policy as Policy Manager
-    participant Result as Access Decision
+flowchart TD
+    A([Бастау]) --> B[Пайдаланушы жүйеге сұраныс жібереді]
+    B --> C[Пайдаланушы атрибуттарын алу]
+    C --> D[Ресурс пен әрекетті анықтау]
+    D --> E[Орта атрибуттарын тексеру]
+    E --> F[ABAC саясатын бағалау]
+    F --> G{Барлық шарттар орындалды ма?}
+    G -->|Иә| H[Қолжетімділікке рұқсат беру]
+    G -->|Жоқ| I[Қолжетімділікке тыйым салу]
+    H --> J[PERMIT нәтижесін шығару]
+    I --> K[DENY нәтижесін шығару]
+    J --> L([Аяқтау])
+    K --> L
 
-    User->>Engine: Қолжетімділік сұранысын жібереді
-    Engine->>Engine: Атрибуттарды анықтайды
-    Engine->>Policy: Саясатты тексеру
-    Policy-->>Engine: Саясат нәтижесі
-
-    alt Шарттар орындалды
-        Engine->>Result: PERMIT
-        Result-->>User: Қолжетімділік рұқсат етілді
-    else Шарттар орындалмады
-        Engine->>Result: DENY
-        Result-->>User: Қолжетімділікке тыйым салынды
-    end
+    style H fill:#d4edda,stroke:#28a745,color:#155724
+    style I fill:#f8d7da,stroke:#dc3545,color:#721c24
 ```
-
 
 ## 10. Күтілетін нәтиже
 
