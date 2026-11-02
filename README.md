@@ -145,31 +145,29 @@ ABAC Policy Engine жобасында UML диаграммасы жүйенің 
 UML диаграммасы жүйенің құрылымын түсінуге, компоненттер арасындағы байланысты көрсетуге және жобаны әзірлеу процесін жеңілдетуге көмектеседі.
 
 
-flowchart TB
-    User["Пайдаланушы"]
-    Admin["Әкімші"]
+## 15. UML Sequence Diagram
 
-    subgraph System["ABAC Policy Engine"]
-        UC1(["Жүйеге сұраныс жіберу"])
-        UC2(["Пайдаланушы атрибуттарын анықтау"])
-        UC3(["Ресурс пен әрекетті анықтау"])
-        UC4(["Қолжетімділік саясатын тексеру"])
-        UC5(["Рұқсат беру (PERMIT)"])
-        UC6(["Тыйым салу (DENY)"])
-        UC7(["Саясаттарды басқару"])
-        UC8(["Қолжетімділік нәтижесін көру"])
+```mermaid
+sequenceDiagram
+    actor User as Пайдаланушы
+    participant Engine as ABAC Policy Engine
+    participant Policy as Policy Manager
+    participant Result as Access Decision
+
+    User->>Engine: Қолжетімділік сұранысын жібереді
+    Engine->>Engine: Атрибуттарды анықтайды
+    Engine->>Policy: Саясатты тексеру
+    Policy-->>Engine: Саясат нәтижесі
+
+    alt Шарттар орындалды
+        Engine->>Result: PERMIT
+        Result-->>User: Қолжетімділік рұқсат етілді
+    else Шарттар орындалмады
+        Engine->>Result: DENY
+        Result-->>User: Қолжетімділікке тыйым салынды
     end
+```
 
-    User --- UC1
-    User --- UC8
-    Admin --- UC7
-    Admin --- UC8
-
-    UC1 -.->|include| UC2
-    UC1 -.->|include| UC3
-    UC1 -.->|include| UC4
-    UC5 -.->|extend| UC4
-    UC6 -.->|extend| UC4
 
 ## 10. Күтілетін нәтиже
 
