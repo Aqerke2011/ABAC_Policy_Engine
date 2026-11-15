@@ -22,3 +22,28 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 replay_pid*
+
+# Qupiya derekter
+.env
+.env.*
+!.env.example
+secrets/
+*.key
+*.pem
+*.p12
+*.pfx
+*.jks
+*.keystore
+
+# Maven
+target/
+dist/
+
+# Redaktor baptauylary
+.idea/
+.vscode/
+*.iml
+
+# Juyelik faildar
+.DS_Store
+Thumbs.db
