@@ -1,7 +1,9 @@
 package kz.abac.model;
 
-// Qolzhetimdilikti tekseru natizhesi
-public enum Decision {
-    PERMIT, // Ruqsat berildi
-    DENY    // Tyiym salyndy
+import java.util.List;
+
+public record Decision(Effect effect, String reason, List<String> matchedRules) {
+    public Decision {
+        matchedRules = List.copyOf(matchedRules);
+    }
 }

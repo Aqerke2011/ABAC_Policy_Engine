@@ -1,0 +1,111 @@
+{
+  "algorithm": "deny-overrides",
+  "rules": [
+    {
+      "id": "deny-personal",
+      "effect": "DENY",
+      "condition": {
+        "op": "eq",
+        "attribute": "device",
+        "value": "personal"
+      }
+    },
+    {
+      "id": "deny-public",
+      "effect": "DENY",
+      "condition": {
+        "op": "eq",
+        "attribute": "location",
+        "value": "public"
+      }
+    },
+    {
+      "id": "allow-staff-report",
+      "effect": "PERMIT",
+      "condition": {
+        "op": "all",
+        "children": [
+          {
+            "op": "any",
+            "children": [
+              {
+                "op": "eq",
+                "attribute": "role",
+                "value": "employee"
+              },
+              {
+                "op": "eq",
+                "attribute": "role",
+                "value": "admin"
+              }
+            ]
+          },
+          {
+            "op": "eq",
+            "attribute": "device",
+            "value": "corporate"
+          },
+          {
+            "op": "eq",
+            "attribute": "location",
+            "value": "office"
+          },
+          {
+            "op": "eq",
+            "attribute": "resource",
+            "value": "report"
+          },
+          {
+            "op": "eq",
+            "attribute": "action",
+            "value": "read"
+          },
+          {
+            "op": "timeBetween",
+            "from": "09:00",
+            "to": "18:00"
+          }
+        ]
+      }
+    },
+    {
+      "id": "allow-admin-write",
+      "effect": "PERMIT",
+      "condition": {
+        "op": "all",
+        "children": [
+          {
+            "op": "eq",
+            "attribute": "role",
+            "value": "admin"
+          },
+          {
+            "op": "eq",
+            "attribute": "device",
+            "value": "corporate"
+          },
+          {
+            "op": "eq",
+            "attribute": "location",
+            "value": "office"
+          },
+          {
+            "op": "eq",
+            "attribute": "resource",
+            "value": "report"
+          },
+          {
+            "op": "eq",
+            "attribute": "action",
+            "value": "write"
+          },
+          {
+            "op": "timeBetween",
+            "from": "09:00",
+            "to": "18:00"
+          }
+        ]
+      }
+    }
+  ]
+}
